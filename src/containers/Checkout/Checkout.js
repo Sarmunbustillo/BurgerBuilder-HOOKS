@@ -1,42 +1,41 @@
-import React, { Component } from 'react';
+import React, {  } from 'react';
 import CheckoutSummary from '../../Components/Order/CheckoutSummary/CheckoutSummary';
 import {Route, Redirect} from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import {connect} from 'react-redux';
 
 
-class Checkout extends Component {    
+const Checkout = props => {    
 
-    onCheckoutCancelled = () => {
-        this.props.history.goBack();
+    const onCheckoutCancelled = () => {
+        props.history.goBack();
     };
 
-    onCheckoutContinued = () => {
-        this.props.history.replace('./checkout/contact-data');
+    const onCheckoutContinued = () => {
+        props.history.replace('./checkout/contact-data');
     };
 
-    render() {
-        let summary = <Redirect to="/" />
-        if(this.props.ings) {
-            const purchasedRedirect = this.props.purchased ? <Redirect to="/" /> : null;
-            summary =(
-                <div>
-                    {purchasedRedirect}
-                    <CheckoutSummary 
-                        ingredients={this.props.ings} 
-                        onCheckoutCancelled={this.onCheckoutCancelled}
-                        onCheckoutContinued={this.onCheckoutContinued}
-                        /> 
-                    <Route
-                        path={this.props.match.path + '/contact-data'}
-                        component={ContactData}
-                        />
-                </div>
-            )
-        };
+    let summary = <Redirect to="/" />
+    if(props.ings) {
+        const purchasedRedirect = props.purchased ? <Redirect to="/" /> : null;
+        summary =(
+            <div>
+                {purchasedRedirect}
+                <CheckoutSummary 
+                    ingredients={props.ings} 
+                    onCheckoutCancelled={onCheckoutCancelled}
+                    onCheckoutContinued={onCheckoutContinued}
+                    /> 
+                <Route
+                    path={props.match.path + '/contact-data'}
+                    component={ContactData}
+                    />
+            </div>
+        )
+    };
 
-        return summary          
-    }
+    return summary          
+   
 }
 
 const mapStateToProps = state => {

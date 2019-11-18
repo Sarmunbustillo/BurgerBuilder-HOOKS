@@ -46,7 +46,7 @@ const BurgerBuilder = props => {
         onInitIngredients();       
     }, [onInitIngredients])
     
-    const updatePurchaseState = (ingredients) => {
+    const updatePurchaseState = (ingredients) => { 
         const sum = Object.keys(ingredients)
         .map(igKey => {
             return ingredients[igKey];
